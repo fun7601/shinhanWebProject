@@ -22,6 +22,128 @@
       <label>비밀번호: <input type="password" id="user_pw" size="10"></label>
       <input type="submit" value="로그인">
     </fieldset>
+    
+     <fieldset>
+     	1. 생략<input autofocus>
+     	<br>
+     	2. 텍스트<input type="text" placeholder="이름을 입력하세요">
+     	<br>
+     	3. 히든<input type="hidden">
+     	<br>
+     	4. 패스워드 <input type="password">
+     	<br>
+     	5. 이메일<input type="email" value="fun7601@naver.com" readonly="readonly">
+     	<br>
+     	6. 연락처<input type="tel" pattern="010-[0-9]{4}-[0-9]{4}" placeholder="필수입력입니다!!!" required="required">
+     	<br>
+     	7. url<input type="url">
+     	<br>
+     	8. search<input type="search">
+     	<br>
+     	9. number<input type="number" min ="1" max="10" value="5">
+     	<br>
+     	10. range<input type="range" min ="1" max="10" value="2">
+     	<br>
+     	11. radio(name이 같으면 group이 됨...배타적 (하나 선택하면 다른 것은 고를 수 없음))
+     	 남자<input type="radio" value="M" name="gender" checked="checked">
+     	 여자<input type="radio" value="F" name="gender">
+     	 <br>
+     	 전공
+     	 컴공<input type="radio" value="A" name="major">
+     	 기계<input type="radio" value="A" name="major" checked="checked">
+     	 생명<input type="radio" value="A" name="major">
+     	 <br>
+     	 12.checkbox(서로 독립적, 여러개 선택 가능)
+     	 <br>
+     	 <!-- id는 front에서 사용한다. -->
+     	 <!-- name은 backend에서 사용한다. -->
+     	 <label for="zza">짜장면</label> 
+     	 <input id="zza" type="checkbox" value="짜장면" name="lunch">
+     	
+     	 <label>
+     	 	순대국<input type="checkbox" value="F" name="lunch">
+     	 </label>
+     	 
+     	 김밥<input type="checkbox" value="G" name="lunch">
+     	<br>
+     	 13.color<input type = "color"><br>
+     	 
+     	 14.date<input type="date"> <br>
+     	 14.datetime<input type="datetime"> <br>
+     	 14.datetime-local<input type="datetime-local"> <br>
+     	 14.month<input type="month"> <br>
+     	 14.week<input type="week"> <br>
+     	 
+     	 15.reset<input type="reset" value="초기화하기"> <br>
+     	 16.image(submit + 이미지)<input type="image" src="images/login.jpg"> <br>
+     	 17.선택(개수가 많을 떄 사용하면 유용 single, multiple)
+     	 18.<select>
+     	 	<option>짜장면</option>
+     	 	<option>짬뽕</option>
+     	 	<option>라면</option>
+     	 	<option>스시</option>
+     	 	<option selected="selected">삼겹살</option>
+     	 </select>
+     	 <br>
+     	 19.<select multiple="multiple" name="lunch2">
+     	 	<option value="zza">짜장면</option>
+     	 	<option value="짬뽕">짬뽕</option>
+     	 	<option>라면</option>
+     	 	<option selected>스시</option>
+     	 	<option selected="selected">삼겹살</option>
+     	 </select>
+     	 
+     	 20.<span class="reg">관심분야</span>
+					<label for="interest"></label>
+					<input type="text" id="interest" list="choices">
+					<datalist id="choices">
+						<option value="grammar" label="문법"></option>
+						<option value="voca" label="어휘"></option>
+						<option value="speaking" label="회화"></option>
+						<option value="listening" label="리스닝"></option>
+						<option value="news" label="뉴스청취"></option>
+					</datalist>
+		 <br>
+		 21.<textarea rows="10" cols="100"></textarea><br>
+		 
+		 22.버튼
+		 <input type = "button" value="input버튼">
+		 <input type = "image" src="images/login.jpg">
+		 <input type = "submit" value="서버로전송">
+		 <input type = "reset" value="초기화하기">
+		 <button>버튼2...submit해줌</button>
+		 <br>
+		 
+		 <h2>폼 새로 만듬</h2>
+		 <form oninput="result.value = parseInt(num1.value)+parseInt(num2.value)">
+		 23.output
+			 <input type="number" name="num1" value="10">
+			  + <input type="number" name="num2" value="20">
+			  = <output name="result" for="num"></output>
+		 </form>
+		 <br>
+		 
+		 24.progress
+		 <progress value="30" max="100"> </progress><br>
+		 
+		 25.동영상
+		 <iframe width="420" height="315"
+			src="https://www.youtube.com/embed/tgbNymZ7vqY">
+		 </iframe>
+		 
+		 26.SQL 데이터 가져오기
+		 
+					
+     </fieldset>
   </form>
+  
+  <button>폼 밖에 있는 버튼(submit 안함)</button>
+  <button onclick="call()">JavaScript연습</button>
+  <script>
+  	function call() {
+		var a = document.getElementById("zza");
+		alert(a.value);
+	}
+  </script>
   </body>
 </html>
