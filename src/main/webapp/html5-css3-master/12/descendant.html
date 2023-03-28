@@ -4,32 +4,84 @@
 <meta charset="utf-8">
 <title>요안도라</title>
 <style>
-	#container ul {
-		border: 1px dotted blue; /* #container 요소의 모든 하위 ul 요소에 파란 1px 실선 */
-	}
+/*
+CSS selector 충돌 : 우선순위 inline > #id > .class > tag 이름
+우선순위가 같다면 나중 것으로 덮어쓰기가 된다.
+*/
+#container ul {
+	border: 1px dotted blue; /* #container 요소의 모든 하위 ul 요소에 파란 1px 실선 */
+}
+
+#container>ul {
+	border: 2px dotted green;
+}
+
+div p {
+	border: 1px dotted blue;
+}
+
+div>p {
+	background-color: orange;
+}
+h1 + p {
+	font-size: 30px;
+	color: red;
+}
+h1 ~ h2 {
+	text-decoration: underline;
+}
 </style>
 </head>
 
 <body>
-  <section id="container">
-  <header><h1>예약 방법 및 요금</h1></header>
-  <p> 요안도라에 예약하려면?
-  <ul>
-    <li> 예약 방법
-      <ul>
-        <li>직접 통화</li>
-        <li>문자 남기기</li>                       
-     </ul>
-   </li>	 
-   <li>요금 
-     <ul>
-        <li>1인 : 40,000원</li>
-        <li>2인 : 60,000원</li>
-        <li>3인 : 80,000원</li>
-	  <li>4인 : 100,000원</li>   
-    </ul>        
-   </li>	
-</ul> 
-</section>
+	<h1>h1이다</h1>
+	<h2>h2이다</h2>
+	<p>AAA</p>
+	<h2>h2이다</h2>
+	<p>AAA</p>
+	<p>AAA</p>
+	<p>AAA</p>
+	<h2>h2이다</h2>
+	<div>
+		<h1>h1이다</h1>
+		<p>AAA</p>
+		<p>AAA</p>
+		<p>AAA</p>
+		<header>
+			<p>BBB</p>
+			<p>BBB</p>
+			<p>BBB</p>
+		</header>
+		<p>CCC</p>
+		<p>CCC</p>
+		<p>CCC</p>
+	</div>
+	<section id="container">
+		<header>
+			<h1>예약 방법 및 요금</h1>
+		</header>
+		<p>요안도라에 예약하려면?
+		<ul>
+			<li>예약 방법
+				<ul>
+					<li>직접 통화</li>
+					<li>문자 남기기</li>
+				</ul>
+			</li>
+			<li>요금
+				<ul>
+					<li>1인 : 40,000원</li>
+					<li>2인 : 60,000원</li>
+					<li>3인 : 80,000원</li>
+					<li>4인 : 100,000원</li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	<ul>
+		<li>A</li>
+		<li>A</li>
+		<li>A</li>
+	</ul>
 </body>
 </html>

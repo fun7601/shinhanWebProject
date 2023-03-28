@@ -17,11 +17,13 @@
 			color: blue;
 			text-decoration: none;
 		}
-	a[title |="us"] {
+		/* 단어가 떨어져 있을 때? */
+	a[title |="us"][href] {
 		background: url(images/us.png) no-repeat left center;
 		padding: 5px 25px;
 	}
-	a[title |="jap"] {
+	/* 단어가 아무데나 포함되어 있으면 적용*/
+	a[title *="jap"] {
 		background: url(images/jp.png) no-repeat left center;
 		padding: 5px 25px;
 	}

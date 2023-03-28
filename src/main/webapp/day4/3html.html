@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	
+
+	a = 100; //글로벌 변수
+	var b = 300; //글로벌 변수
+	//변수를 선언하였지만 값이 초기화되지는 않음 undefined
+	console.log(c); //이게 가능한 이유 = 호이스팅(var로 선언된 변수를 가장 위로 올린다, function 선언도 위로 올림)
+	call();
+	function call() {
+		a2 = 200; //실행시 a2가 선언되고 값이 할당된다. 글로벌 변수
+		var b2 = 400; //var을 붙이고 함수안에 있으면 지역변수(로컬변수)
+	}
+	function call2() {
+		document.querySelector("#here").innerHTML = a + a2 + b + c;
+		
+	}
+	function call3() {
+		const pi = 3.14; 
+		// 상수는 변경 불가능 pi = 3.142592;
+		//document.querySelector("#here").innerHTML = pi;
+		var score = 100;
+		score++;
+		//document.querySelector("#here").innerHTML += "<br> 점수는" + score;
+		
+		var str = "<ul>";
+		for(let i=1; i<=10; i++) {
+			str += "<li> 숫자는" + i + "</li>"
+		}
+		//let는 block{} 안에서만 유효
+		//global이거나 var이면 접근가능 str += "<li> !!!숫자는" + i + "</li>"
+		str += "</ul>"
+			document.querySelector("#here").innerHTML = "pi="	+ pi + "<br> score = "+ score + str;
+		
+	}
+	var c = 1000; //글로벌 변수
+	
+</script>
+</head>
+<body>
+<h1>자바스크립트 문법</h1>
+<button onclick="call()">변수선언scope1</button>
+<button onclick="call2()">변수선언scope2</button>
+<button onclick="call3()">var, let, const</button>
+<hr>
+<div id="here">여기</div>
+</body>
+</html>

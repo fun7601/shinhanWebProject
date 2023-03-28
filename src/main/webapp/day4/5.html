@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- HTML 주석 -->
+<script>
+	//js주석
+	/* */
+</script>
+<style>
+/* CSS 주석 
+   inlinem internal, external */
+h1 {
+	background-color: orange;
+}
+</style>
+</head>
+<body>
+	<h1 style="color: blue;">자바스크립트 문법...반복문</h1>
+	<button id="btn1">for문</button>
+	<button id="btn2">for문2</button>
+	<button id="btn3">for문3</button>
+	<button id="btn4">for문4</button>
+	<hr>
+	<div id="here">여기</div>
+	<script>
+		var target = document.querySelector("#here");
+		document.querySelector("#btn1").onclick = call; //callback 함수, 함수명 옆에 ()을 넣으면 버튼을 누르기도 전에 함수가 수행되버림
+		document.querySelector("#btn2").onclick = call2;
+		document.querySelector("#btn3").onclick = call3;
+		document.querySelector("#btn4").onclick = call4;
+		
+		function call4() {
+			var arr = [100, 200, 300];
+			var sum = 0;
+			for(let data of arr) {
+				sum += data;
+			}
+			alert(sum);
+		}
+		
+		function call3() {
+			target.innerHTML = "For문 연습";
+			var arr = [100, 3.14, "JavaScript", 10 > 20, 
+					   function(){alert("나는 함수이다.");}, [10, 20, 30],{"이름" : "홍길동", age : 20}];
+			for(let i in arr) {
+				target.innerHTML += "<br>" + arr[i] + "---" + typeof(arr[i]);
+				if(typeof(arr[i])==="function") {
+					arr[i](); //()에 의해 function이 실행된다.
+				}
+				if(i == arr.length-1) {
+					alert(arr[i].이름 + "---" + arr[i].age);
+				}
+			}
+		}
+		
+		
+		function call2() {
+			var now = new Date().getTime(); //현재 시각을 long으로 받기
+	
+			for(var i = 0; new Date().getTime() < now + 1000; i++) {
+			}
+			console.log(i);
+		}
+		
+		
+		function call() {
+			target.innerHTML = "For문 연습";
+			//자바는 배열에 같은 타입만 가능
+			//자바 스크립트는 여러 타입을 배열에 저장할 수 있다.
+			//모든 타입 6개 : number, string, booleanm undefined, function, object
+			var arr = [100, 3.14, "JavaScript", 10 > 20, 
+					   function(){alert("나는 함수이다.");}, [10, 20, 30],{"이름" : "홍길동", age : 20}];
+			for(let i = 0; i < arr.length; i++) {
+				target.innerHTML += "<br>" + arr[i] + "---" + typeof(arr[i]);
+				if(typeof(arr[i])==="function") {
+					arr[i](); //()에 의해 function이 실행된다.
+				}
+				if(i == arr.length-1) {
+					alert(arr[i].이름 + "---" + arr[i].age);
+				}
+			}
+		}
+	</script>
+</body>
+</html>
