@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>function연습</title>
+	<script>
+		console.log("1.js");
+		window.onload = f1; //f1 함수 이름 알고만 있고 로드 후에 수행하라는 의미
+		
+		
+		
+		//함수를 파라메터로 넘겨서 실행
+		function call(ff) {
+			ff();
+			ff();
+		}
+		
+		function f1() {
+			here.innerHTML = 'JS에서 접근###'
+			
+			btn7.onclick = function () {
+				clearInterval(timer);
+			}
+			
+			btn6.onclick = function () {
+				timer = setInterval(function () {
+					here.innerHTML = new Date();
+				}, 1000);
+			}
+			
+			//callback : 행위는 내가 결정, 실행 시점은 받은 쪽에서 결정한다.
+			btn5.onclick =  function () {
+				var myFunction = function(){
+					here.innerHTML += "<p>JS배우기</p>" 
+				};
+				call(myFunction);
+			};
+			
+			
+			btn4.onclick = function () {
+				alert = 100;
+				delete alert;
+				alert("메시지 띄우기");
+				//alert(alert);
+				
+			}
+			
+			
+			btn3.onclick = function () {
+				here.innerHTML = sumAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+				
+				//함수 이름이 충돌되면 나중 것이 수행된다. 
+				//반드시 수행해야 하는 함수를 내부 함수로 만들 수 있다.
+				//내부함수
+				function sumAll() {
+					//내장변수 arguments가 있기 때문에 매개변수가 몇 개 올지 모르는 것은 아예 안써도 된다
+					var total = 0;
+					for(let i = 0; i < arguments.length; i++) {
+						total += arguments[i];
+					}
+					return total;
+				};
+			
+			};
+			
+			btn2.onclick = function () {
+				var a = Array();
+				var b = Array(5); //5개짜리 배열
+				var c = Array(100, 200, 300);
+				here.innerHTML = a.length;
+				here.innerHTML += "<br>" + b.length;
+				here.innerHTML += "<br>" + c;
+			};
+			
+			
+			btn1.onclick = function () {
+				here.innerHTML = sum(10, 20, 30); //남는 경우
+				here.innerHTML += "<br>" + sum(10); //모자라는 경우
+				here.innerHTML += "<br>" + sum(10, 20);
+			};
+		};
+		
+		
+		function sumAll() {
+			return 999;
+		};
+		
+		function sum(a, b) {
+			return a+b;
+		};
+	</script>
+</head>
+<body>
+	<script>
+		console.log("2.js");
+	</script>
+	<h1>JS function</h1>
+	<hr>
+	<button id="btn1">함수의 매개변수</button>
+	<button id="btn2">Array</button>
+	<button id="btn3">arguments...내부함수연습</button>
+	<button id="btn4">이름 충돌</button>
+	<button id="btn5">callback함수</button>
+	<button id="btn6">callback함수(타이머 시작)</button>
+	<button id="btn7">callback함수(타이머 중지)</button>
+	<hr>
+	<div id="here">여기</div>
+	<script>
+		console.log("3.js");
+		//here.innerHTML = "JS에서 접근";
+	</script>
+</body>
+</html>
