@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<style>
+		table, tr, td {
+			border: 1px solid gray;
+			border-collapse: collapse;
+		}
+	</style>
+	<script>
+	/*
+	선언적 함수 : 이름 있는 함수
+	익명 함수 : 이름 없는 함수
+	내부 함수 : 함수 내의 함수, 외부 접근 불가능
+	callback 함수 : 정의는 내가 하고 호출은 받은 쪽에서 한다.
+	함수가 파라메터로 전달된다.
+	closure : 지역 변수는 지역을 벗어나면 사용 불가, 규칙 위반(지역을 벗어나서 사용하고자 함)
+			  지역 변수를 담아서 함수를 리턴, 지역 변수 계속 사용 가능
+	화살표 함수(람다식) : () => {} , function() {} 과 같은 기능
+	*/
+		window.onload = function () {
+			//alert("load끝");
+			here.innerHTML = "<h1>load 끝</h1>"
+			btn1.onclick = call;
+			btn2.onclick = call2;
+			btn3.onclick = call3;
+			btn4.onclick = call4;
+			btn5.onclick = call5;
+			btn6.onclick = call6;
+			btn7.onclick = call7;
+			btn8.onclick = call8;
+			btn9.onclick = call9;
+			btn10.onclick = call10;
+			
+			function test() {}
+		}
+	
+		function call() {
+			setInterval(() => {
+				here.innerHTML = new Date();
+			}, 1000);
+		}
+		function call2() {
+			for(var i =0; i < 3; i++) {
+				//here.innerHTML += `<h1>${i}</h1>`;
+				setTimeout(() => {
+					here.innerHTML += `<h1>${i}</h1>`;
+				}, 0);
+			}
+			here.innerHTML += `<h1>for종료후 ${i}</h1>`; //for문장을 벗어나도 i는 살아있어서 3이 나옴
+		}
+		function call3() {
+			for(var i =0; i < 3; i++) {
+				//here.innerHTML += `<h1>${i}</h1>`;
+				(function (aa) {setTimeout(() => {
+					here.innerHTML += `<h1>${i}</h1>`;
+				}, 0)})(i);
+			}
+		}
+		function call4() {
+			for(let i =0; i < 3; i++) {
+				//here.innerHTML += `<h1>${i}</h1>`;
+				setTimeout(() => {
+					here.innerHTML += `<h1>${i}</h1>`;
+				}, 0);
+			}
+		}
+		function call5() {
+			var arr = [100, 60, 90, 30];
+			var str = "<ul>"
+			arr.forEach((item, index, obj) => {
+				str += `<li>${item}</li>`;
+			});
+			here.innerHTML = str + "</ul>";
+			/* arr.forEach(function (item, index, obj) {
+				
+			}); */
+		}
+		function call6() {
+			var arr = [];
+			arr.push({name:"홍길동1", age:20, java:100, sql:99, jdbc:88});
+			arr.push({name:"홍길동2", age:30, java:99, sql:100, jdbc:55});
+			arr.push({name:"홍길동3", age:40, java:88, sql:77, jdbc:77});
+			arr.push({name:"홍길동4", age:22, java:77, sql:88, jdbc:33});
+			arr.push({name:"홍길동5", age:33, java:80, sql:66, jdbc:44});
+			
+			for(var index in arr){
+				console.log(arr[index]);
+				
+				arr[index].getSum = function () {
+					return this.java + this.sql + this.jdbc;
+				}
+				arr[index].getAvg = function () {
+					return this.getSum()/3;
+				}
+				
+				for(var prop in arr[index]) {
+					console.log(prop, "=====", arr[index][prop]);
+					
+				}
+			}
+			//forEach
+			var str = "<table><tr><td>이름</td><td>나이</td><td>총점</td><td>평균</td></tr>";
+			arr.forEach(function (item, index) {
+				str += `<tr>
+							<td>${item.name}</td>
+							<td>${item.age}</td>
+							<td>${item.getSum()}</td>
+							<td>${item.getAvg()}</td>
+						</tr>`;
+			});
+			here.innerHTML = str + "</table>";
+		}
+		function call7() {
+			var arr = [];
+			arr.push(new Student("배동열1", 20, 100, 99, 88));
+			arr.push(new Student("배동열2", 21, 99, 88, 66));
+			arr.push(new Student("배동열3", 22, 88, 99, 99));
+			arr.push(new Student("배동열4", 27, 77, 99, 77));
+			arr.push(new Student("배동열5", 25, 66, 99, 88));
+			
+			Student.prototype.getSum = function () {
+				return this.java + this.sql + this.jdbc;
+			}
+			Student.prototype.getAvg = function () {
+				return this.getSum()/3;
+			}
+			Student.prototype.toString = function() {
+				return `이름은 ${this.name} ${this.age} ${this.java} ${this.sql} ${this.jdbc}...총점:${this.getSum()} 평균은 ${this.getAvg()}`;
+			}
+			
+			for(var index in arr) {
+				console.log(arr[index]);
+				here.innerHTML += `<p>${arr[index]}</p>` 
+			}
+			
+		}
+		
+		function Student(name, age, java, sql, jdbc) {
+			this.name = name;
+			this.age = age;
+			this.java = java;
+			this.sql = sql;
+			this.jdbc = jdbc;
+			
+		}
+		
+		function call8() {
+			var c1 = new Car("ABC모델");
+			var c2 = Car("DDD모델"); //undefined이다. 왜? 함수가 리턴이 없으므로
+			console.log(c1.model);
+			//console.log(c2.model); 오류
+			console.log(model);
+			console.log(window.model);
+			console.dir(window);
+		}
+		
+		function Car(model) {
+			//new로 생성하면 this는 현재 객체가 된다.
+			//new를 사용하지 않으면 this는 window가 된다.
+			this.model = model;
+		}
+		
+		function Car2(m){
+		    var model = m;
+		    this.getModel = function(){return model;};
+		    this.setModel = function(m){model=m;}; 
+		}
+		function call9(){
+		    var c1 = new Car2("ABC모델");
+		    console.log(c1.getModel());
+		}
+		
+		function call10() {
+			
+		}
+	</script>
+</head>
+<body>
+	<h1>function, object에 대하여</h1>
+	<button id="btn1">callback function</button>
+	<button id="btn2">클로저test(var)</button>
+	<button id="btn3">클로저test(변수복사)</button>
+	<button id="btn4">클로저test(let)</button>
+	<button id="btn5">클로저test(forEach)</button>
+	<button id="btn6">배열과 객체</button>
+	<button id="btn7">생성자 함수</button>
+	<button id="btn8">this연습</button>
+	<button id="btn9">function</button>
+	<button id="btn10">function</button>
+	<hr>
+	<div id = "here">여기</div>
+</body>
+</html>
