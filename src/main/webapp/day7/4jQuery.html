@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script>
+		var arr = [];
+		arr.push({"stdId":100, "stdName":"홍길동1", homePage:"http://www.daum.net"});
+		arr.push({"stdId":200, "stdName":"홍길동2", homePage:"http://localhost:9998/shinhanWebProject/day2/empSelect.jsp"});
+		arr.push({"stdId":300, "stdName":"홍길동3", homePage:"../day2/emp_insert.html"});
+		
+		$(function(){
+			var output = "<ul>"; 
+			$.each(arr, function (index, item) {
+				output += `<li><a href = '${item.homePage}'>${item.stdName}의 홈페이지</a> </li>`;
+			});
+			$("#here").html(output + "</ul>"); //innerHTML과 같은 기능
+			
+		
+			var output = "<ul>"; 
+			arr.forEach(function (item, index) {
+				output += `<li><a href = '${item.homePage}'>${item.stdName}의 홈페이지</a> </li>`;
+			});
+			output +=  "</ul>";
+			here.innerHTML += output;
+		});
+		
+	</script>
+</head>
+<body>
+	<div id="here"></div>
+	
+	
+</body>
+</html>

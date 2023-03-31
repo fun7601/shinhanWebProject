@@ -164,6 +164,8 @@ public class EmpDAO {
 		
 		try {
 			pst = conn.prepareStatement(sql);
+			
+			
 			pst.setString(1, emp.getFIRST_NAME());
 			pst.setString(2, emp.getLAST_NAME());
 			pst.setString(3, emp.getEMAIL());
