@@ -75,6 +75,18 @@ List<EmpVO> emplist = eservice.selectAll();
 			$("tr td:contains('S')").css("color", "blue");
 		})
 		
+		$("#btn4").on("click", function () {
+			init();
+			var selector = " tr > td:nth-child(5)";
+			
+			$(selector).each(function (index, item) {
+				var sal = parseInt($(item).html());
+				if(sal >= 5000) {
+					$(item).css("background-color", "lightgreen")
+				}
+			})
+		})
+		
 	
 		$("thead tr th").click(function(e) {
 			var trNum = $(this).closest("th").prevAll().length;
@@ -88,6 +100,21 @@ List<EmpVO> emplist = eservice.selectAll();
 			});
 		});
 		
+		var str = "";
+		var arr = ["IT_PROG", "AD_VP", "AD_PRES", "ST_MAN", "ST_CLERK"];
+		$.each(arr, function (index, item) {
+			str += "<option>" + item + "</option>";
+		});
+		
+		$("#jobs").html(str); //html() : jquery 함수, innerHTML은 자바스크립트 속성
+		
+		
+		$("select").change(function(){
+			var jobid = $(this).val();
+			//init();
+			$("tr td").css("color","black");
+			$("tr td:contains('" + jobid + "')").css("color", "red");
+			});
 	})
 
 	
@@ -105,6 +132,11 @@ List<EmpVO> emplist = eservice.selectAll();
 			<button id='btn1'>짝수행만 선택</button>
 			<button id='btn2'>이름이 S로 시작하는 직원</button>
 			<button id='btn3'>S가 포함된 것</button>
+			<button id='btn4'>연봉 5000 이상인 직원</button>
+			
+			<select id="jobs">
+				
+			</select>
 			<hr>
 			<thead>
 				<tr>
