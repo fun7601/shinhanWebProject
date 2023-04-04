@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+	var myName = "성훈...window의 속성";
+	$(function() {
+		var myName = "성훈...function의 지역변수"; //var 붙이면 지역변수
+		var obj = {
+			"myName" : "object의 myName",
+			"age" : 20
+		};
+
+		$("#btn4").on("click", function() {
+			print("javascript");
+		});
+		$("#btn1").on("click", function() {
+			print.call(obj, "파라메터1");
+		});
+		$("#btn2").on("click", function() {
+			print.apply(obj, [ "파라메터2" ]);
+		});
+		$("#btn3").on("click", function() {
+			var f = print.bind(obj); //호출이 아니고 연결만 한다.
+			f("파라메터3"); //함수 호출
+		});
+		$("#btn5").on("click", function() {
+			//서버에 요청 보내기...form 이용 또는 location.href
+			//이렇게 쓰면 페이지 이동이 일어난다.
+			location.href = "../day2/empSelect.jsp";
+
+		});
+		$("#btn6").on("click", function() {
+			//서버에 요청 보내기...페이지 이동 없이 요청하고 싶음
+			//(Asynchronize Javascript and XML) = Ajax
+			var xhr = new XMLHttpRequest();
+			xhr.open("get", "2.html", true); //세번째 아규먼트 : 비동기 여부, 비동기이면 아래 같은 if문 써야함
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					$("#here").html(xhr.responseText);
+				}
+			}
+			xhr.send();
+			//1번째 업무가 2번째 업무에 영향을 미쳐야 한다 --> 다른 업무 끝날 때까지 기다려야 함 --> 동기 사용
+			//1번, 2번 업무가 전혀 상관이 없다 --> 다른 업무가 끝나는 것을 기다리지 않아도 됨 --> 비동기 사용
+		});
+		$("#btn7").on("click", function() {
+			//서버에 요청보내기 ...page이동 없이 요청하고자한다.
+			//(Asynchronize JavaScript and XML)
+			var xhr = new XMLHttpRequest();
+			xhr.open("get", "emp.jsp", true);//3번째arg:비동기여부
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					var output = "";
+					var obj = JSON.parse(xhr.responseText);
+					output += `<input value="${obj.firstname}" >`;
+					output += `<input value="${obj.age}" >`;
+					$("#here").html(output);
+				}
+			};
+			xhr.send();
+			
+		});
+
+	});
+
+	function print(param) {
+		//윈도우거
+		$("#here").html(param + "********" + this.myName); //this가 윈도우에 있는 myName을 찍는다
+	}
+</script>
+<script>
+	$(function() {
+		
+		$("#btn14").on("click", function() {
+			const options = {method: 'GET', 
+							 headers: {accept: 'application/json'}};
+			//promise
+			fetch('https://api.bithumb.com/public/ticker/ALL_KRW', options)
+			  .then(response => response.json()) //자바스크립트 오브젝트로 리턴해줌
+			  .then(response => {
+				  console.log(response.data);
+				  var output = "<table border = 1><tr><td>종목</td><td>시작가</td><td>종가</td></tr>";
+				  for(let key in response.data){
+					  var obj = response.data[key];
+					  output += `<tr><td>${key}</td>
+					  				 <td>${obj["opening_price"]}</td>`;
+					  output += `	 <td>${obj["closing_price"]}</td></tr>`;
+				  }
+				  output += "</table>";
+				  $("#here").html(output);
+			  })
+			  .catch(err => console.error(err));
+		})
+		
+		$("#btn13").on("click", function() {
+			//method(요청방식) 상관없이 통합된 함수
+			 $.ajax({
+				 url:"emp.jsp",
+				 method:"post",
+				 data: {"empid" : $("#empid").val()},
+				 success: function(responseData,status,xhr) {
+					 console.log(xhr);
+					 var obj = JSON.parse(responseData);
+					 var output = "";
+					 output += `이름:<input value="${obj.firstname}" >`;
+					 output += `급여:<input value="${obj.salary}" >`;
+						
+					 $("#here").html(output);
+				 },
+			 	 error: function(xhr,status,error) {}
+			 });
+		})
+		
+		$("#btn12").on("click", function() {
+			var empid = $("#empid").val();
+			var parameter = {"empid":empid};
+			$.post("emp.jsp", parameter, function (responseData, status) {
+				console.log("get 수행한 후 실행한다.")
+				alert("get 수행한 후 실행한다.");
+				var obj = JSON.parse(responseData);
+				console.log(responseData, status);
+				var output = "";
+				output += `이름:<input value="${obj.firstname}" >`;
+				output += `급여:<input value="${obj.salary}" >`;
+				$("#here").html(output);
+			});
+		})
+		
+		$("#btn11").on("click", function() {
+			var empid = $("#empid").val();
+			$.get("emp.jsp?empid=" + empid, function (responseData, status) {
+				console.log("get 수행한 후 실행한다.")
+				alert("get 수행한 후 실행한다.");
+				var obj = JSON.parse(responseData);
+				console.log(responseData, status);
+				var output = "";
+				output += `이름:<input value="${obj.firstname}" >`;
+				output += `급여:<input value="${obj.salary}" >`;
+				$("#here").html(output);
+			});
+		})
+		
+		$("#btn10").on("click", function() {
+			//가장 단순한 ajax 메소드...가공없이 그대로 사용할 때
+			$("#here").load("emp.jsp", {"empid":200}, function () {
+				console.log("load 수행한 후 실행한다.")
+				alert("load 수행한 후 실행한다.");
+			});
+		})
+		
+		$("#btn9").on("click", function() {
+			//가장 단순한 ajax 메소드...가공없이 그대로 사용할 때
+			$("#here").load("2.html", {}, function () {
+				console.log("load 수행한 후 실행한다.")
+				alert("load 수행한 후 실행한다.");
+			});
+		})
+		
+		$("#btn8").on("click", function() {
+			var empid = $("#empid").val();
+			var xhr = new XMLHttpRequest();
+			xhr.open("get", "emp.jsp?empid=" + empid, true);
+			xhr.onreadystatechange = function() {
+
+				if (xhr.readyState != 4 || xhr.status != 200)
+					return;
+
+				var str = xhr.responseText;
+				var obj = JSON.parse(str);
+				console.log(str);
+
+				var output = "";
+				output += `이름:<input value="${obj.firstname}" >`;
+				output += `급여:<input value="${obj.salary}" >`;
+				$("#here").html(output);
+			}
+			xhr.send();
+		});
+	});
+</script>
+</head>
+<body>
+	<h1>jQuery연습</h1>
+	<button id="btn1">call</button>
+	<button id="btn2">apply</button>
+	<button id="btn3">bind</button>
+	<button id="btn4">함수호출</button>
+	<button id="btn5">전통적인 요청 보내기</button>
+	<button id="btn6">JS으로 Ajax</button>
+	<button id="btn7">JS으로 Ajax</button>
+	<br>
+	<input type="number" value="100" id="empid">
+	<button id="btn8">직원정보 가져오기</button>
+	<button id="btn9">jquery ajax(load)</button>
+	<button id="btn10">jquery ajax(load)</button>
+	<button id="btn11">jquery ajax(get)</button>
+	<button id="btn12">jquery ajax(post)</button>
+	<button id="btn13">jquery ajax(ajax)</button>
+	<button id="btn14">fetch 함수 사용</button>
+	<div id="here">여기</div>
+</body>
+</html>

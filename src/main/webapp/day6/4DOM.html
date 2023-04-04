@@ -16,11 +16,12 @@
 		btn7.onclick = call7;
 	};
 	function call1() {
-		var elementNode = document.createElement("h1"); // <h1></h1>
+		/* var elementNode = document.createElement("h1"); // <h1></h1>
 		var textNode = document.createTextNode("DOM연습"); // DOM연습 객체생성
 		elementNode.appendChild(textNode); // <h1>DOM연습</h1>
 		var here = document.getElementById("here");// <div id="here"></div>
-		here.appendChild(elementNode);
+		here.appendChild(elementNode); */
+		document.querySelector("#three").innerHTML = "귤";
 	}
 	function call2() {
 		var here = document.getElementById("here");
@@ -81,5 +82,13 @@
 	<label><input type="checkbox" name="fruit" value="banana"><span>바나나</span></label>
 
 	<div id="here">여기</div>
+	<div>
+		<ul>
+			<li id="one"><em>신선한</em>무화과</li>
+			<li id="two">잣</li>
+			<li id="three">꿀</li>
+			<li id="four">발사믹 식초</li>
+		</ul>
+	</div>
 </body>
 </html>

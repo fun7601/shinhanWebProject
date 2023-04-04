@@ -17,7 +17,7 @@
         </li>
         <li>
           <label><input type="checkbox" value="s_5">선물용 5kg</label>
-          <input type="number" min="0" max="3" value="1">개 (최대 3개)
+          <input type="number" step="2" min="0" max="3" value="1">개 (최대 3개)
         </li>
       </ul>
       <ul>
@@ -27,7 +27,7 @@
         </li>
         <li>
           <label><input type="checkbox" value="f_5">가정용 5kg</label>
-          <input type="range" min="0" max="3" value="1">개 (최대 3개)
+          <input type="range" step="2" min="0" max="3" value="1">개 (최대 3개)
         </li>
       </ul>      
       <p><b>포장 선택</b></p>
@@ -60,6 +60,14 @@
     <div>
       <input type="submit" value="주문하기"> 
       <input type="reset" value="취소하기">
+      <input type="range" min="0" max="5">개 최대 5개
+      <input type="date">
+      <input type="month">
+      <input type="week">
+      <input type="time">
+      <input type="date" min="2023-04-01" max="2023-04-04" value="2023-04-01">
+      <input type="datetime">
+      <input type="datetime-local" min="2023-04-01" max="2023-04-04" value="2023-04-01">
     </div>        
   </form>
 </body>
